@@ -217,6 +217,7 @@ export default function HomePage() {
               return (
                 <div
                   key={feature.number}
+                  style={{ pointerEvents: "none" }}
                   className="relative grid gap-5 border-b border-[#3A1A16]/20 py-7 sm:grid-cols-[50px_52px_1fr] sm:gap-6 sm:py-8 md:grid-cols-[60px_58px_0.9fr_1fr] md:items-center md:gap-7 lg:grid-cols-[70px_64px_0.9fr_1fr] lg:gap-8 lg:py-10"
                 >
                   {/* Number */}
