@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@layer base {
+  ::selection {
+    @apply bg-accent-500 text-white;
+  }
+
+  body {
+    @apply min-h-screen bg-secondary-100 font-sans text-charcoal-900 antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display;
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  img {
+    @apply max-w-full;
+  }
+}
+
+@layer components {
+  .section-light {
+    @apply bg-secondary-100 text-charcoal-900;
+  }
+
+  .section-dark {
+    @apply bg-primary-700 text-white;
+  }
+
+  .editorial-heading {
+    @apply font-display font-medium leading-[0.9] tracking-[-0.03em];
+  }
+
+  .editorial-label {
+    @apply font-sans text-xs font-medium uppercase tracking-[0.2em];
+  }
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}
