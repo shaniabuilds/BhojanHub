@@ -29,8 +29,10 @@ export function useKeyboardShortcuts(shortcuts: KeyboardShortcut[]) {
       }
 
       const shortcut = shortcutsRef.current.find((entry) => {
-        const matchesKey = event.key.toLowerCase() === entry.key.toLowerCase();
-
+        const matchesKey =
+          event.key.toLowerCase() === entry.key.toLowerCase() ||
+          (entry.key === "?" && event.code === "Slash");
+          
         const matchesCtrlOrCmd = entry.ctrlOrCmd
           ? event.ctrlKey || event.metaKey
           : !event.ctrlKey && !event.metaKey;
