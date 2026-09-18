@@ -1,8 +1,6 @@
-
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import {
   ArrowRight,
   Calendar,
@@ -12,7 +10,6 @@ import {
   Users,
   Utensils,
 } from "lucide-react";
-
 
 export default function HomePage() {
   const [demoSubmitted, setDemoSubmitted] = useState(false);
@@ -100,8 +97,8 @@ export default function HomePage() {
             {/* Hero description */}
             <p className="mt-8 max-w-2xl px-2 font-sans text-sm leading-6 text-[#D8CBBE] sm:mt-10 sm:px-0 sm:text-base sm:leading-7">
               Streamline table reservations, harmonize front-of-house
-              hospitality, and optimize kitchen pace with a platform crafted
-              for culinary excellence.
+              hospitality, and optimize kitchen pace with a platform crafted for
+              culinary excellence.
             </p>
 
             {/* CTA */}
@@ -190,9 +187,7 @@ export default function HomePage() {
               <h2 className="mt-6 max-w-4xl font-display text-[3.25rem] font-medium leading-[0.84] tracking-[-0.045em] text-[#3A1A16] sm:mt-7 sm:text-6xl lg:text-[6rem]">
                 Every moving part,
                 <br />
-                <span className="text-[#6F3028]">
-                  beautifully connected.
-                </span>
+                <span className="text-[#6F3028]">beautifully connected.</span>
               </h2>
             </div>
 
@@ -220,10 +215,9 @@ export default function HomePage() {
               const Icon = feature.icon;
 
               return (
-                <Link
+                <div
                   key={feature.number}
-                  href="/features"
-                  className="group relative grid gap-5 border-b border-[#3A1A16]/20 py-7 transition-all duration-500 hover:bg-[#3A1A16]/[0.035] sm:grid-cols-[50px_52px_1fr] sm:gap-6 sm:py-8 md:grid-cols-[60px_58px_0.9fr_1fr] md:items-center md:gap-7 lg:grid-cols-[70px_64px_0.9fr_1fr_auto] lg:gap-8 lg:py-10"
+                  className="relative grid gap-5 border-b border-[#3A1A16]/20 py-7 sm:grid-cols-[50px_52px_1fr] sm:gap-6 sm:py-8 md:grid-cols-[60px_58px_0.9fr_1fr] md:items-center md:gap-7 lg:grid-cols-[70px_64px_0.9fr_1fr] lg:gap-8 lg:py-10"
                 >
                   {/* Number */}
                   <span className="font-sans text-[9px] font-medium tracking-[0.18em] text-[#C93E2B] sm:text-[10px] sm:tracking-[0.2em]">
@@ -231,16 +225,16 @@ export default function HomePage() {
                   </span>
 
                   {/* Icon */}
-                  <div className="flex h-11 w-11 items-center justify-center rounded-full border border-[#3A1A16]/15 transition-all duration-500 group-hover:border-[#C93E2B]/50 group-hover:bg-[#C93E2B]">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-full border border-[#3A1A16]/15">
                     <Icon
                       size={19}
                       strokeWidth={1.3}
-                      className="text-[#3A1A16] transition-colors duration-500 group-hover:text-white"
+                      className="text-[#3A1A16]"
                     />
                   </div>
 
                   {/* Title */}
-                  <h3 className="font-display text-[2rem] leading-none tracking-[-0.02em] text-[#3A1A16] transition-transform duration-500 group-hover:translate-x-1 sm:text-4xl lg:text-[2.6rem]">
+                  <h3 className="font-display text-[2rem] leading-none tracking-[-0.02em] text-[#3A1A16] sm:text-4xl lg:text-[2.6rem]">
                     {feature.title}
                   </h3>
 
@@ -248,13 +242,7 @@ export default function HomePage() {
                   <p className="max-w-md font-sans text-xs leading-6 text-[#5E514C] sm:text-sm">
                     {feature.text}
                   </p>
-
-                  {/* Explore */}
-                  <span className="hidden items-center gap-2 font-sans text-[9px] font-semibold uppercase tracking-[0.18em] text-[#3A1A16] opacity-0 transition-all duration-500 group-hover:translate-x-1 group-hover:opacity-100 lg:flex">
-                    Explore
-                    <ArrowRight size={13} />
-                  </span>
-                </Link>
+                </div>
               );
             })}
           </div>
