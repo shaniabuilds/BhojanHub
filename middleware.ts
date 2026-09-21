@@ -5,7 +5,14 @@ const publicPaths = new Set(["/login", "/api/auth/login", "/api/auth/logout", "/
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const user = await readSessionToken(request.cookies.get(SESSION_COOKIE_NAME)?.value);
+
+  const cookieToken = request.cookies.get(SESSION_COOKIE_NAME)?.value;
+  const authHeader = request.headers.get("authorization");
+  const bearerToken = authHeader?.startsWith("Bearer ")
+    ? authHeader.slice(7)
+    : undefined;
+
+  const user = await readSessionToken(cookieToken || bearerToken);
 
   if (pathname === "/login") {
     if (user) return NextResponse.redirect(new URL("/", request.url));

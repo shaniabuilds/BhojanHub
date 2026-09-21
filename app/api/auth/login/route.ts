@@ -49,11 +49,13 @@ export async function POST(request: Request) {
     email: user.email,
     role: user.role,
   };
-  const response = NextResponse.json({ user: sessionUser });
-  response.cookies.set(
-    SESSION_COOKIE_NAME,
-    await createSessionToken(sessionUser),
-    sessionCookieOptions,
-  );
+
+  // Create the token ONCE and reuse it for both the browser cookie and the
+  // JSON response — mobile apps can't rely on cookies, so they read the
+  // token from the response body and send it back as an Authorization header.
+  const token = await createSessionToken(sessionUser);
+
+  const response = NextResponse.json({ user: sessionUser, token });
+  response.cookies.set(SESSION_COOKIE_NAME, token, sessionCookieOptions);
   return response;
 }
