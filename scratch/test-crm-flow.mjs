@@ -72,3 +72,4 @@ assert.equal(updated2.notes, "Gluten intolerance, seating preference: patio");
 console.log("✔ Guest notes editable update logic passed.");
 
 console.log("All CRM unit and rule validations passed successfully!");
+

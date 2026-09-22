@@ -1,161 +1,67 @@
-// import * as Device from 'expo-device';
-// import { Platform, StyleSheet } from 'react-native';
-// import { SafeAreaView } from 'react-native-safe-area-context';
+import React from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { useRouter } from "expo-router";
 
-// import { AnimatedIcon } from '@/components/animated-icon';
-// import { HintRow } from '@/components/hint-row';
-// import { ThemedText } from '@/components/themed-text';
-// import { ThemedView } from '@/components/themed-view';
-// import { WebBadge } from '@/components/web-badge';
-// import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
-
-// function getDevMenuHint() {
-//   if (Platform.OS === 'web') {
-//     return <ThemedText type="small">use browser devtools</ThemedText>;
-//   }
-//   if (Device.isDevice) {
-//     return (
-//       <ThemedText type="small">
-//         shake device or press <ThemedText type="code">m</ThemedText> in terminal
-//       </ThemedText>
-//     );
-//   }
-//   const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
-//   return (
-//     <ThemedText type="small">
-//       press <ThemedText type="code">{shortcut}</ThemedText>
-//     </ThemedText>
-//   );
-// }
-
-// export default function HomeScreen() {
-//   return (
-//     <ThemedView style={styles.container}>
-//       <SafeAreaView style={styles.safeArea}>
-//         <ThemedView style={styles.heroSection}>
-//           <AnimatedIcon />
-//           <ThemedText type="title" style={styles.title}>
-//             Welcome to&nbsp;Expo
-//           </ThemedText>
-//         </ThemedView>
-
-//         <ThemedText type="code" style={styles.code}>
-//           get started
-//         </ThemedText>
-
-//         <ThemedView type="backgroundElement" style={styles.stepContainer}>
-//           <HintRow
-//             title="Try editing"
-//             hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-//           />
-//           <HintRow title="Dev tools" hint={getDevMenuHint()} />
-//           <HintRow
-//             title="Fresh start"
-//             hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-//           />
-//         </ThemedView>
-
-//         {Platform.OS === 'web' && <WebBadge />}
-//       </SafeAreaView>
-//     </ThemedView>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     flexDirection: 'row',
-//   },
-//   safeArea: {
-//     flex: 1,
-//     paddingHorizontal: Spacing.four,
-//     alignItems: 'center',
-//     gap: Spacing.three,
-//     paddingBottom: BottomTabInset + Spacing.three,
-//     maxWidth: MaxContentWidth,
-//   },
-//   heroSection: {
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//     flex: 1,
-//     paddingHorizontal: Spacing.four,
-//     gap: Spacing.four,
-//   },
-//   title: {
-//     textAlign: 'center',
-//   },
-//   code: {
-//     textTransform: 'uppercase',
-//   },
-//   stepContainer: {
-//     gap: Spacing.three,
-//     alignSelf: 'stretch',
-//     paddingHorizontal: Spacing.three,
-//     paddingVertical: Spacing.four,
-//     borderRadius: Spacing.four,
-//   },
-// });
-
-import { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  FlatList,
-  ActivityIndicator,
-  StyleSheet,
-} from "react-native";
-import { API_BASE_URL } from "../config/api";
-
-export default function Index() {
-  const [menu, setMenu] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    fetch(`${API_BASE_URL}/api/menu`)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("API Response:", JSON.stringify(data));
-        setMenu(data.items || data.menuItems || []);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError(err.message);
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) {
-    return (
-      <View style={styles.center}>
-        <ActivityIndicator size="large" color="#C93E2B" />
-        <Text style={styles.text}>Loading menu from BhojanHub backend...</Text>
-      </View>
-    );
-  }
-
-  if (error) {
-    return (
-      <View style={styles.center}>
-        <Text style={styles.text}>❌ Error: {error}</Text>
-      </View>
-    );
-  }
+export default function ModeSelectionScreen() {
+  const router = useRouter();
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>✅ Connected! {menu.length} items found</Text>
-      <FlatList
-        data={menu}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View style={styles.card}>
-            <Text style={styles.itemName}>{item.name}</Text>
-            <Text style={styles.itemPrice}>₹{item.price}</Text>
-          </View>
-        )}
-      />
+      <View style={styles.content}>
+        <View style={styles.logoCircle}>
+          <Text style={styles.logoEmoji}>🍽️</Text>
+        </View>
+
+        <Text style={styles.brand}>
+          Bhojan<Text style={styles.brandAccent}>Hub</Text>
+        </Text>
+
+        <Text style={styles.subtitle}>
+          How would you like to continue?
+        </Text>
+
+        <View style={styles.options}>
+          <TouchableOpacity
+            style={styles.optionCard}
+            onPress={() => router.replace("/login")}
+            activeOpacity={0.85}
+          >
+            <View style={styles.optionIcon}>
+              <Text style={styles.optionEmoji}>🏪</Text>
+            </View>
+
+            <View style={styles.optionText}>
+              <Text style={styles.optionTitle}>Restaurant</Text>
+              <Text style={styles.optionDescription}>
+                Manage your restaurant
+              </Text>
+            </View>
+
+            <Text style={styles.arrow}>→</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.optionCard}
+            onPress={() => router.replace("/customer")}
+            activeOpacity={0.85}
+          >
+            <View style={styles.optionIcon}>
+              <Text style={styles.optionEmoji}>🍽️</Text>
+            </View>
+
+            <View style={styles.optionText}>
+              <Text style={styles.optionTitle}>Customer</Text>
+              <Text style={styles.optionDescription}>
+                Browse menu and order food
+              </Text>
+            </View>
+
+            <Text style={styles.arrow}>→</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      <Text style={styles.footer}>BhojanHub · Hospitality Platform</Text>
     </View>
   );
 }
@@ -164,30 +70,94 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#F3E9DC",
-    paddingTop: 60,
-    paddingHorizontal: 16,
+    justifyContent: "space-between",
+    paddingHorizontal: 22,
+    paddingTop: 90,
+    paddingBottom: 30,
   },
-  center: {
-    flex: 1,
+  content: {
+    alignItems: "center",
+  },
+  logoCircle: {
+    width: 72,
+    height: 72,
+    borderRadius: 36,
+    backgroundColor: "#3A1A16",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#F3E9DC",
+    marginBottom: 16,
   },
-  title: {
-    fontSize: 18,
-    fontWeight: "600",
+  logoEmoji: {
+    fontSize: 34,
+  },
+  brand: {
+    fontSize: 32,
+    fontWeight: "800",
     color: "#3A1A16",
-    marginBottom: 12,
+    letterSpacing: -1,
   },
-  text: { marginTop: 10, color: "#3A1A16" },
-  card: {
-    backgroundColor: "white",
-    padding: 14,
-    borderRadius: 12,
-    marginBottom: 8,
+  brandAccent: {
+    color: "#C93E2B",
+  },
+  subtitle: {
+    fontSize: 15,
+    color: "#665650",
+    marginTop: 8,
+    marginBottom: 34,
+  },
+  options: {
+    width: "100%",
+    gap: 14,
+  },
+  optionCard: {
+    width: "100%",
+    backgroundColor: "#FFFFFF",
+    borderRadius: 22,
+    padding: 18,
     flexDirection: "row",
-    justifyContent: "space-between",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#3A1A1612",
+    shadowColor: "#3A1A16",
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.07,
+    shadowRadius: 12,
+    elevation: 3,
   },
-  itemName: { fontSize: 15, color: "#3A1A16", fontWeight: "500" },
-  itemPrice: { fontSize: 15, color: "#C93E2B", fontWeight: "600" },
+  optionIcon: {
+    width: 52,
+    height: 52,
+    borderRadius: 16,
+    backgroundColor: "#F3E9DC",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  optionEmoji: {
+    fontSize: 25,
+  },
+  optionText: {
+    flex: 1,
+    marginLeft: 14,
+  },
+  optionTitle: {
+    fontSize: 18,
+    fontWeight: "800",
+    color: "#3A1A16",
+  },
+  optionDescription: {
+    fontSize: 12,
+    color: "#665650",
+    marginTop: 4,
+  },
+  arrow: {
+    fontSize: 22,
+    fontWeight: "700",
+    color: "#C93E2B",
+    marginLeft: 8,
+  },
+  footer: {
+    textAlign: "center",
+    fontSize: 11,
+    color: "#88756E",
+  },
 });

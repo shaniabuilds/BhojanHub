@@ -1,3 +1,4 @@
+
 export type MenuCategory =
   | "Indian"
   | "Biryani"
@@ -22,6 +23,8 @@ export interface MenuItem {
   category: MenuCategory;
   price: number;
   description: string;
+  emoji?: string;
+  image?: string;
 }
 
 export interface CartItem extends MenuItem {
@@ -124,6 +127,14 @@ export interface Customer {
   loyalty_points?: number;
 }
 
+export interface CustomerResponse {
+  customer: Customer;
+}
+
+export interface CustomersResponse {
+  customers: Customer[];
+}
+
 export interface MenuItemIngredient {
   menu_item_id: string;
   inventory_item_id: string;
@@ -138,6 +149,14 @@ export interface InventoryItem {
   low_stock_threshold: number;
   linked_menu_item_ids: string[];
   ingredients: MenuItemIngredient[];
+}
+
+export interface InventoryItemResponse {
+  inventoryItem: InventoryItem;
+}
+
+export interface InventoryResponse {
+  inventoryItems: InventoryItem[];
 }
 
 export type TableStatus = "available" | "occupied" | "reserved";
@@ -158,22 +177,6 @@ export interface WaitlistEntry {
   phone?: string;
   notes?: string;
   created_at: string;
-}
-
-export interface CustomerResponse {
-  customer: Customer;
-}
-
-export interface CustomersResponse {
-  customers: Customer[];
-}
-
-export interface InventoryItemResponse {
-  inventoryItem: InventoryItem;
-}
-
-export interface InventoryResponse {
-  inventoryItems: InventoryItem[];
 }
 
 export interface TableResponse {
@@ -219,4 +222,11 @@ export interface ReportBreakdownResponse {
   breakdown: BreakdownItem[];
   totalRevenue: number;
   totalOrders: number;
+}
+
+export interface SessionUser {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
 }

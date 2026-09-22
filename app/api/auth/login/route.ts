@@ -50,9 +50,7 @@ export async function POST(request: Request) {
     role: user.role,
   };
 
-  // Create the token ONCE and reuse it for both the browser cookie and the
-  // JSON response — mobile apps can't rely on cookies, so they read the
-  // token from the response body and send it back as an Authorization header.
+  
   const token = await createSessionToken(sessionUser);
 
   const response = NextResponse.json({ user: sessionUser, token });
